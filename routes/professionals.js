@@ -4,7 +4,7 @@ const professionalController= require("../controllers/professionalController");
 const validateProfessional = require("../middlewares/validateProfessionalBody");
 const verified = require("../middlewares/verifyToken")
 
-router.get("/professionals",professionalController.getProfessional);
+router.get("/professionals",verified,professionalController.getProfessional);
 
 router.get("/professional/:id", professionalController.getSingleProfessional);
 
