@@ -1,0 +1,65 @@
+//---Users---\\
+GET http://localhost:4040/users
+
+####
+POST http://localhost:4040/createUser
+Content-Type: application/json
+
+{
+    "firstName":"Andrea",
+    "lastName":"Frabotta",
+    "email":"io.mestesso@hotmail.com",
+    "password":"gojoforever",
+    "age":35
+}
+
+####
+
+GET http://localhost:4040/users/66202feecee0ac9bc580adb3
+
+####
+PATCH http://localhost:4040/users/update/66202feecee0ac9bc580adb3
+Content-Type: application/json
+
+{
+    "firstName": "Andrew"
+}
+
+####
+DELETE http://localhost:4040/users/delete/
+
+
+//--Professional--\\
+
+####
+GET http://localhost:4040/professionals
+
+####
+
+POST http://localhost:4040/createProfessional
+Content-Type: application/json
+
+{
+    "firstName": "Andrea",
+    "lastName" : "Frabotta",
+    "email": "io.mestesso@hotmail.com",
+    "password":"gojoforever",
+    "age":35,
+    "job":"web developer"
+}
+
+####
+
+GET http://localhost:4040/professional/6620309ef1edc63d989633fc
+
+####
+PATCH http://localhost:4040/professional/update/6620309ef1edc63d989633fc
+Content-Type: application/json
+
+{
+    "firstName":"Andrew"
+}
+
+####
+DELETE http://localhost:4040/professional/delete/6620309ef1edc63d989633fc
+
