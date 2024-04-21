@@ -41,7 +41,6 @@ exports.addProfessional = async (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
     password: hashedPassword,
-    age: Number(req.body.age),
     job: req.body.job,
   });
   try {
@@ -69,18 +68,20 @@ exports.updateProfessional = async (req, res) => {
   }
   try {
     const updatedData = req.body;
-        const options = { new: true };
+    const options = { new: true };
 
-        const result = await ProfessionalModel.findByIdAndUpdate(id, updatedData, options);
+    const result = await ProfessionalModel.findByIdAndUpdate(
+      id,
+      updatedData,
+      options
+    );
 
-        res.status(200).send(result)
+    res.status(200).send(result);
   } catch (error) {
-    res
-            .status(500)
-            .send({
-                statusCode: 500,
-                message: 'Internal server error'
-            })
+    res.status(500).send({
+      statusCode: 500,
+      message: "Internal server error",
+    });
   }
 };
 

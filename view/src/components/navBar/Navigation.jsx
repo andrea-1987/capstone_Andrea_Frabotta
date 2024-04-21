@@ -81,16 +81,9 @@ export function StickyNavbar() {
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>Log In</span>
-              </Button>
               <div>
           <Button onClick={handleOpen} variant="gradient">
-            Sign Up
+            Sign in
           </Button>
           <Dialog
             open={open}

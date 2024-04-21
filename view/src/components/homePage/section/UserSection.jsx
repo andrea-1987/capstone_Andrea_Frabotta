@@ -8,7 +8,7 @@ import {
   Dialog,
 } from "@material-tailwind/react";
 import styles from "./section.module.css";
-import { SimpleRegistrationForm } from "../../signUpForm/SignUpForm";
+import { UserRegistrationForm } from "../../signUpForm/UserSignUpForm";
 
 export function UserCard() {
   const [open, setOpen] = React.useState(false);
@@ -44,7 +44,7 @@ export function UserCard() {
             handler={handleOpen}
             className="flex justify-center"
           >
-            <SimpleRegistrationForm />
+            <UserRegistrationForm />
           </Dialog>
         </div>
       </CardBody>

@@ -42,7 +42,6 @@ exports.addUser=async(req,res)=>{
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword,
-        age: Number(req.body.age)
     })
     try {
         await newUser.save()

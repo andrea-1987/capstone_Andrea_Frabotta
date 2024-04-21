@@ -24,12 +24,7 @@ const validateUserBody = (req, res, next) => {
     if (typeof password !== 'string' || password.length < 8) {
         errors.push('Password must be a string with min 8 char')
     }
-
-    if (typeof age !== 'number') {
-        errors.push('Age must be a valid number, not string')
-    }
-
-    if (errors.length > 0) {
+     if (errors.length > 0) {
         res.status(400).send({ errors })
     } else {
         next()
