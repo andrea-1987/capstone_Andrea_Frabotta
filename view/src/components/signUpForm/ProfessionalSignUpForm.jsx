@@ -10,13 +10,11 @@ import { useState } from "react";
 export function ProfessionalRegistrationForm() {
   const [formData, setFormData] = useState({});
 
-
-
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/createUser`,
+        `${process.env.REACT_APP_SERVER_BASE_URL}/createProfessional`,
         {
           method: "POST",
           headers: {
@@ -31,7 +29,7 @@ export function ProfessionalRegistrationForm() {
         throw new Error("Somethinks  wrong!");
       }
     } catch (e) {
-      alert("Error to create user", e.message);
+      alert("Error to create Professional", e.message);
     }
   };
   const onChageInput = (e) => {

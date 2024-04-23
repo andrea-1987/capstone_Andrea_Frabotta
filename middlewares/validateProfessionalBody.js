@@ -26,9 +26,6 @@ const validateProfessionalBody = (req, res, next) => {
         errors.push('Password must be a string with min 8 char')
     }
 
-    if (typeof age !== 'number') {
-        errors.push('Age must be a valid number, not string')
-    }
     if (typeof job !== "string"){
         errors.push("Job must be a string")
     }

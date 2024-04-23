@@ -2,9 +2,9 @@ const express=require("express");
 const router = express.Router();
 const usersController= require("../controllers/usersController");
 const validateUser = require("../middlewares/validateUserBody");
-const verified = require("../middlewares/verifyToken")
+const verified = require("../middlewares/verifyToken");
 
-router.get("/users", usersController.getUsers);
+router.get("/users",verified, usersController.getUsers);
 
 router.get("/users/:id", usersController.getSingleUsers);
 

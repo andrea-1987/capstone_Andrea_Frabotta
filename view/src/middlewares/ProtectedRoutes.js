@@ -1,11 +1,17 @@
 import { Outlet } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
+import{ jwtDecode }from "jwt-decode";
 
-const useAuth=()=>{
-    return JSON.parse(localStorage.getItem("auth"))
-}
+const useAuth = () => {
+    const token = localStorage.getItem("auth");
+    if (token) {
+        return jwtDecode(token);
+    } else {
+        return null;
+    }
+};
 
-export const ProteCtedRoutes=()=>{
-    const isAuth = useAuth()
-    return isAuth? <Outlet/>: <HomePage/>
-}
+export const ProtectedRoutes = () => {
+    const isAuth = useAuth();
+    return isAuth ? <Outlet /> : <HomePage />;
+};

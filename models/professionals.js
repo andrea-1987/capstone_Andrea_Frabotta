@@ -32,6 +32,11 @@ const ProfessionalSchema = new mongoose.Schema ({
     job :{
         type:String,
         required:true
+    },
+    role :{
+        type:String,
+        require:false,
+        default:"professional"
     }
 },{timestamps:true,strict:true});
 

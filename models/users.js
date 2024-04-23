@@ -28,7 +28,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false,
         default: "https://static.vecteezy.com/system/resources/previews/000/649/115/original/user-icon-symbol-sign-vector.jpg"
-    }
+    },
+role:{
+    type:String,
+    required:false,
+    default:"user"
+}
 },{timestamps:true,strict:true});
 
 module.exports=mongoose.model("UserModel",UserSchema,"users")

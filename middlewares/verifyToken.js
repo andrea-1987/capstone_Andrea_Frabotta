@@ -1,27 +1,28 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 
-module.exports = function(req, res, next) {
+module.exports = function (req, res, next) {
     try {
-        const token = req.headers['authorization'];
+    const token = req.headers['authorization']
 
-        if (!token) {
-            return res.status(401).json({
-                message: 'Token not provided',
+    if (!token) {
+        return res.status(401)
+            .send({
+                message: 'Your token is not valid',
                 statusCode: 401
-            });
-        }
-        jwt.verify(token, process.env.SECRET_KEY, function(err, decoded) {
-            if (err) {
-                return res.status(403).json({
-                    message: 'Invalid token',
-                    statusCode: 403
-                });
-            }
-            req.user = decoded;
-
-               next();
-        });
-    } catch (error) {
-        next(error);
+            })
     }
-};
+
+
+        const verified = jwt.verify(token, process.env.SECRET_KEY)
+        console.log(verified)
+        req.user = verified
+        console.log(token)
+        next()
+    } catch (e) {
+        res.status(403)
+            .send({
+                statusCode: 403,
+                message: 'Your token is not valid or expired!'
+            })
+    }
+}

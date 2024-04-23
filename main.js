@@ -6,6 +6,7 @@ const cors = require("cors");
 const path = require("path");
 const usersRoutes= require("./routes/users");
 const professionalRoutes=require("./routes/professionals");
+const loginRoutes= require("./routes/login")
 
 const PORT = 4040;
 const app = express();
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/", loginRoutes);
 app.use("/", usersRoutes);
 app.use("/", professionalRoutes);
 
