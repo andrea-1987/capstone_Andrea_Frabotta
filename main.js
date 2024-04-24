@@ -4,9 +4,10 @@ require("dotenv").config();
 const connectToDataBase = require("./db");
 const cors = require("cors");
 const path = require("path");
-const usersRoutes= require("./routes/users");
-const professionalRoutes=require("./routes/professionals");
-const loginRoutes= require("./routes/login")
+const usersRoutes = require("./routes/users");
+const professionalRoutes = require("./routes/professionals");
+const loginRoutes = require("./routes/login");
+const worksRoutes = require("./routes/works");
 
 const PORT = 4040;
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/", loginRoutes);
 app.use("/", usersRoutes);
 app.use("/", professionalRoutes);
+app.use("/", worksRoutes);
 
 connectToDataBase();
 

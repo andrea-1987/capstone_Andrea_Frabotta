@@ -3,6 +3,7 @@ import { HomePage} from "./pages/HomePage"
 import { ProtectedRoutes } from './middlewares/ProtectedRoutes';
 import { UserPage } from './pages/UserPage';
 import { ProfessionalPage } from './pages/ProfessionalPage';
+import { ProfessionalContent } from './components/professionalPage/ProfessionalContent';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route element={<ProtectedRoutes/>}>
           <Route path="/users" element={<UserPage/>}/>
           <Route path="/professionals" element={<ProfessionalPage/>}/>
+          <Route path="/works" element={<ProfessionalContent/>}/>
         </Route>
       </Routes>
     </Router>

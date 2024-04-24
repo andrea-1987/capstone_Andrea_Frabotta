@@ -15,6 +15,7 @@ export function StickyNavbar() {
 
   const handleOpen = () => setOpen(!open);
 
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -30,7 +31,7 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <a href=" " className="flex items-center">
           Pages
         </a>
       </Typography>
@@ -40,7 +41,7 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <a href=" " className="flex items-center">
           Account
         </a>
       </Typography>
@@ -50,7 +51,7 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <a href=" " className="flex items-center">
           Blocks
         </a>
       </Typography>
@@ -60,7 +61,7 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <a href=" " className="flex items-center">
           Docs
         </a>
       </Typography>

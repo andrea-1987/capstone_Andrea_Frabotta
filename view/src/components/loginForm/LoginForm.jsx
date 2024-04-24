@@ -35,13 +35,13 @@ export function LoginForm() {
             const decodedToken = jwtDecode(data.token);
             const role = decodedToken.role;
 
-            // Esegui il routing in base al ruolo
+       
             if (role === 'user') {
               navigate('/users');
             } else if (role === 'professional') {
               navigate('/professionals');
             } else {
-              // Gestione di altri ruoli o errori
+          
               alert('Unknown role');
             }
           } catch (error) {
@@ -76,20 +76,7 @@ export function LoginForm() {
       </Typography>
       <form onSubmit={onSubmit} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="mb-1 flex flex-col gap-6">
-          {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your Name
-          </Typography>
-          <Input
-          onChange={onChangeInput}
-          name="firstname"
-            size="lg"
-            placeholder="name@mail.com"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          /> */}
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    <Typography variant="h6" color="blue-gray" className="-mb-3">
             Your Email
           </Typography>
           <Input

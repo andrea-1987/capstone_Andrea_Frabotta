@@ -3,11 +3,24 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "./index.css";
+import { configureStore,combineReducers } from '@reduxjs/toolkit';
+import {Provider} from  'react-redux'
+import worksReducer from "./redux/WorkCardSlice"
+
+const rootReducer = combineReducers({
+  worksData:worksReducer,
+})
+
+const store = configureStore({
+  reducer: rootReducer
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>
 );
 

@@ -129,7 +129,7 @@ export function ProfessionalRegistrationForm() {
             >
               I agree the
               <a
-                href="#"
+                href=" "
                 className="font-medium transition-colors hover:text-gray-900"
               >
                 &nbsp;Terms and Conditions

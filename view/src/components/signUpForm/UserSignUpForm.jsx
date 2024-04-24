@@ -11,8 +11,6 @@ import { useState } from "react";
 export function UserRegistrationForm() {
   const [formData, setFormData] = useState({});
 
-//   const client = new AxiosClient();
-
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -35,21 +33,7 @@ export function UserRegistrationForm() {
       alert("Error to create user", e.message);
     }
   };
-// const onSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await client.post('/createUser', formData);
-//       console.log("Response from server:", response); // Debug output
-//       if (response.status === 201) {
-//         return response.data;
-//       } else {
-//         throw new Error("Unexpected status code: " + response.status);
-//       }
-//     } catch (error) {
-//       alert("Failed to create User: " + error.message);
-//     }
-//   };
-  
+
   const onChageInput = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -134,7 +118,7 @@ export function UserRegistrationForm() {
             >
               I agree the
               <a
-                href="#"
+                href=" "
                 className="font-medium transition-colors hover:text-gray-900"
               >
                 &nbsp;Terms and Conditions
