@@ -6,10 +6,11 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
-// import AxiosClient from "../../client/client";
+import { useNavigate } from "react-router-dom";
 
 export function UserRegistrationForm() {
   const [formData, setFormData] = useState({});
+  const navigate= useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +26,9 @@ export function UserRegistrationForm() {
         }
       );
       if (response.ok) {
-        return await response.json();
+       navigate("/users")
+       alert("User successfully create!")
+       return response.json()
       } else {
         throw new Error("Somethinks  wrong!");
       }

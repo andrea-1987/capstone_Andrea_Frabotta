@@ -1,6 +1,6 @@
 import React from "react";
 
-export const UserCards=(author,title,description,img)=>{
+export const UserCards=({author,title,description,img})=>{
     return(
         <div class="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
   <div

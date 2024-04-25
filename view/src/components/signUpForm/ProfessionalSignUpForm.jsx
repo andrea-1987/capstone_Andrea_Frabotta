@@ -6,9 +6,11 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function ProfessionalRegistrationForm() {
   const [formData, setFormData] = useState({});
+  const navigate= useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +26,9 @@ export function ProfessionalRegistrationForm() {
         }
       );
       if (response.ok) {
-        return await response.json();
+            navigate("/professionals")
+            alert("Professional successfully create!")
+            return response.json()
       } else {
         throw new Error("Somethinks  wrong!");
       }

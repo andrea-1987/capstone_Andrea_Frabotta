@@ -1,9 +1,9 @@
 import React from "react";
 import { MainLayout } from "../layout/MainLayout";
-import { ProfessionalContent } from "../components/professionalPage/ProfessionalContent";
+import { ProfessionalContent } from "../components/professional/ProfessionalContent";
 
 export const ProfessionalPage = () => {
-       return (
+          return (
         <MainLayout>
             <ProfessionalContent />
         </MainLayout>
