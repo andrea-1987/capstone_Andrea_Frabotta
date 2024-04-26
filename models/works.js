@@ -19,6 +19,16 @@ const WorksSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    location:{
+      type:String,
+      required:false,
+      default :"unknown"
+    },
+    pubDate:{
+      type:Date,
+      required:false,
+      default:Date.now()
+    }
   },
   { timestamps: true, strict: true }
 );

@@ -12,7 +12,6 @@ import { jwtDecode } from "jwt-decode";
 export function LoginForm() {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
-
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -29,6 +28,7 @@ export function LoginForm() {
 
       if (response.ok) {
         const data = await response.json();
+      
         if (data.token) {
           localStorage.setItem('auth', data.token);
           try {
@@ -69,7 +69,7 @@ export function LoginForm() {
   return (
     <Card color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
-        Sign in
+        Log in
       </Typography>
       <Typography color="gray" className="mt-1 font-normal">
       Wellcome back.Enter your detail to log in.

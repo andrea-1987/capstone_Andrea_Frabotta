@@ -4,6 +4,7 @@ import { CustomSpinner } from "../loading/Loader";
 import { ErrorAlert } from "../error/Error";
 import { UserCards } from "../card/UserCard";
 import { getAllWorks, allWorks, isWorkLoading, worksError } from "../../redux/WorkCardSlice";
+import styles from "./workContent.module.css"
 
 export const WorksContent = () => {
   const dispatch = useDispatch();
@@ -16,17 +17,18 @@ export const WorksContent = () => {
   }, [dispatch]);
 
   return (
-      <div>
+      <div className="flex gap-2 ">
         {isLoading && <CustomSpinner />}
         {!isLoading && error && <ErrorAlert message="Ops! qualcosa è andato storto" />}
         {!isLoading && !error && (
           works.payload && works.payload.map((work) => (
             <div key={work._id}>
-              <UserCards
+              <UserCards className={`${styles.card} size-24`}
                 author={work.author}
                 description={work.description}
                 title={work.title}
                 img={work.img}
+                location={work.location}
               />
             </div>
           ))

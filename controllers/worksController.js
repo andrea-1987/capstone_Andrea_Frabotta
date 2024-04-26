@@ -12,9 +12,19 @@ exports.cloudUploadWorks=async(req,res)=>{
 }
 
 exports.getWorks = async (req, res) => {
+  const {page=1,pageSize=4}=req.query
   try {
     const works = await WorksModel.find()
+        .limit(pageSize)
+        .skip((page-1)*pageSize)
+        .sort({pubDate:-1})
+     
+    const totalWorks =await WorksModel.countDocuments();   
+    
     res.status(200).send({
+      currentPage: page,
+      pageSize,
+      totalPages:Math.ceil(totalWorks/pageSize),
       statusCode: 200,
       payload: works,
     });
@@ -48,6 +58,7 @@ exports.addWork = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     img: req.body.img,
+    location:req.body.location
   });
   try {
     await newWork.save();

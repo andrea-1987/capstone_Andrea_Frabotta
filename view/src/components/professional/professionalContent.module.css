@@ -1,0 +1,10 @@
+.content{
+ display: flex;
+};
+.sidebar{
+    width: 25%;
+};
+.main{
+    width: 70%;
+};
+
