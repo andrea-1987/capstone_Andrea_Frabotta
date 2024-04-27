@@ -13,11 +13,11 @@ export const WorksContent = () => {
   const error = useSelector(worksError);
   const [page, setPage] = useState(1);
   const [works, setWorks] = useState([]);
-  const [totalPages, setTotalPages] = useState(0); // Aggiungi stato per il numero totale di pagine
+  const [totalPages, setTotalPages] = useState(0);
 
   const getWorks = async () => {
     try {
-      const response = await fetch(`http://localhost:4040/works?page=${page}`);
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/works?page=${page}`);
       const data = await response.json();
       setWorks(data.payload); // Imposta solo i dati dei lavori, non l'intera risposta
       setTotalPages(data.totalPages); // Imposta il numero totale di pagine
