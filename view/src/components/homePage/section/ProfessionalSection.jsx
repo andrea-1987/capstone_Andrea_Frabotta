@@ -11,7 +11,7 @@ import styles from "./section.module.css";
 import { ProfessionalRegistrationForm } from "../../signUpForm/ProfessionalSignUpForm";
 
 
-export function ProfessionalCard() {
+export function ProfessionalSection() {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);

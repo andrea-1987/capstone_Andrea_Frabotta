@@ -1,6 +1,6 @@
 import React from "react";
 
-export const UserCards=({author,title,description,img,location})=>{
+export const UserCards=({author,title,description,img,location,pubDate})=>{
     return(
         <div class="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
   <div
@@ -46,23 +46,10 @@ export const UserCards=({author,title,description,img,location})=>{
     <h5 class="block font-sans text-xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
        {author} <span>({location})</span>
       </h5>
-      <div class="flex justify-center p-6 pt-2 gap-7">
-    <a href="#facebook"
-      class="block font-sans text-xl antialiased font-normal leading-relaxed text-transparent bg-clip-text bg-gradient-to-tr from-blue-600 to-blue-400">
-      <i class="fab fa-facebook" aria-hidden="true"></i>
-    </a>
-    <a href="#twitter"
-      class="block font-sans text-xl antialiased font-normal leading-relaxed text-transparent bg-clip-text bg-gradient-to-tr from-light-blue-600 to-light-blue-400">
-      <i
-        class="fab fa-twitter" aria-hidden="true">
-      </i>
-    </a>
-    <a href="#instagram"
-      class="block font-sans text-xl antialiased font-normal leading-relaxed text-transparent bg-clip-text bg-gradient-to-tr from-purple-600 to-purple-400"><i
-        class="fab fa-instagram" aria-hidden="true">
-      </i>
-    </a>
-  </div>
+
+    </div>
+    <div class="gap-3 mt-8">
+      <p><b>Post on :</b> {pubDate}</p>
     </div>
   </div>
   <div class="p-6 pt-3">

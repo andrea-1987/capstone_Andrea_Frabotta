@@ -10,7 +10,7 @@ import {
 import styles from "./section.module.css";
 import { UserRegistrationForm } from "../../signUpForm/UserSignUpForm";
 
-export function UserCard() {
+export function UserSection() {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
