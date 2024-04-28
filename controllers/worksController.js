@@ -12,7 +12,7 @@ exports.cloudUploadWorks=async(req,res)=>{
 }
 
 exports.getWorks = async (req, res) => {
-  const {page=1,pageSize=4}=req.query
+  const {page=1,pageSize=3}=req.query
   try {
     const works = await WorksModel.find()
         .limit(pageSize)
@@ -43,6 +43,7 @@ exports.getSingleWork = async (req, res) => {
     res.status(200).send({
       statusCode: 200,
       message: `Works with id ${id} correctly found`,
+      payload:work
     });
   } catch (error) {
     res.status(500).send({

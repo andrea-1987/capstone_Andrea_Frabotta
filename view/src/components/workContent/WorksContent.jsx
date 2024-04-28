@@ -15,19 +15,20 @@ export const WorksContent = () => {
   const [works, setWorks] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
 
-  const getWorks = async () => {
+  const getAllWorks = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/works?page=${page}`);
       const data = await response.json();
-      setWorks(data.payload); // Imposta solo i dati dei lavori, non l'intera risposta
-      setTotalPages(data.totalPages); // Imposta il numero totale di pagine
+      setWorks(data.payload); 
+      setTotalPages(data.totalPages); 
     } catch (error) {
-      console.error("Error fetching works:", error);
+      alert("Error fetching works:", error);
     }
   };
 
   useEffect(() => {
-    getWorks();
+    getAllWorks();
+    window.scrollTo(0, 0);
   }, [page]);
 
   const onPageChange = (newPage) => {
@@ -35,27 +36,27 @@ export const WorksContent = () => {
   };
 
   return (
-    <div className={styles.content}>
+    <div className={`${styles.content}`}>
       {isLoading && <CustomSpinner />}
       {!isLoading && error && <ErrorAlert message="Ops! Qualcosa è andato storto" />}
       {!isLoading && !error && (
         works.map((work) => (
           <div key={work._id}>
             <UserCards
-              className={`${styles.card} size-24`}
+              className={`${styles.card}`}
               author={work.author}
               description={work.description}
               title={work.title}
               img={work.img}
               location={work.location}
               pubDate={work.pubDate}
+              _id={work._id}
             />
           </div>
         ))
       )}
 
       <DefaultPagination
-        className={styles.pagination}
         onPageChange={onPageChange}
         currentPage={page}
         totalPage={totalPages} 
@@ -125,3 +126,5 @@ export const WorksContent = () => {
 //     </div>
 //   );
 // };
+
+

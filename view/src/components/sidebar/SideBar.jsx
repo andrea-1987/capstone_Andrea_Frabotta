@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {AddWorkModal} from "../addWorkModal/AddWorkModal";
+import { AddWorkModal } from "../addWorkModal/AddWorkModal";
 import {
   Card,
   Typography,
@@ -28,26 +28,51 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
- 
+import { useLocation } from "react-router-dom";
+
 export function SidebarWithSearch() {
-  const [open, setOpen] = React.useState(0);
-   const [openModal,setOpenModal] = useState(false)
- 
+  const [open, setOpen] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
+  const location = useLocation();
+
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
- const handleOpenModal=()=>setOpenModal(!openModal)
 
+  const handleOpenModal = () => setOpenModal(!openModal);
+  const shouldShowAddWorkButton = location.pathname === "/professionals";
+  const showInput = location.pathname === "/professionals" || "/users"; 
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 flex items-center gap-4 p-4">
-        <img src="https://docs.material-tailwind.com/img/logo-ct-dark.png" alt="brand" className="h-8 w-8" />
+        <img
+          src="https://docs.material-tailwind.com/img/logo-ct-dark.png"
+          alt="brand"
+          className="h-8 w-8"
+        />
         <Typography variant="h5" color="blue-gray">
-          Sidebar
+        Just Do It
         </Typography>
       </div>
-      <div className="p-2">
-        <Input icon={<MagnifyingGlassIcon className="h-5 w-5" />} label="Search" />
+      <div className="p-2 m-2">
+        {showInput &&(<div>
+          <Typography variant="h5" color="blue-gray">
+          Job
+        </Typography>
+          <Input
+          icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+          label="Search"
+        />
+        </div>)}
+        {showInput &&(<div>
+          <Typography variant="h5" color="blue-gray">
+          Location
+        </Typography>
+          <Input
+          icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+          label="Search"
+        />
+        </div>)}
       </div>
       <List>
         <Accordion
@@ -55,7 +80,9 @@ export function SidebarWithSearch() {
           icon={
             <ChevronDownIcon
               strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 1 ? "rotate-180" : ""
+              }`}
             />
           }
         >
@@ -97,7 +124,9 @@ export function SidebarWithSearch() {
           icon={
             <ChevronDownIcon
               strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 2 ? "rotate-180" : ""
+              }`}
             />
           }
         >
@@ -150,9 +179,11 @@ export function SidebarWithSearch() {
           </ListItemPrefix>
           Settings
         </ListItem>
-        <Button onClick={ handleOpenModal}variant="gradient">
-          Add Work
-        </Button>
+        {shouldShowAddWorkButton && (
+          <Button onClick={handleOpenModal} variant="gradient">
+            Add Work
+          </Button>
+        )}
         <Dialog
           open={openModal}
           handler={handleOpenModal}
@@ -167,7 +198,6 @@ export function SidebarWithSearch() {
           Log Out
         </ListItem>
       </List>
-      
     </Card>
   );
 }

@@ -1,12 +1,9 @@
 .content{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin-left: 10px;
-    margin-inline: 10px
+    margin-inline: 10px;
     
 };
-.pagination{
-    justify-content: center;
-  
+.card{
+    margin-inline: 10px;
 }

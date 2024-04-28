@@ -9,7 +9,7 @@ const initialState = {
   error: null,
   totalWorks: 0,
   currentPage:1,
-  pageSize:4,
+  pageSize:3,
   page:1,
   totalPage:1,
 };
