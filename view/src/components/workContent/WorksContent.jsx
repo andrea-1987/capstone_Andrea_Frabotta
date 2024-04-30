@@ -1,25 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomSpinner } from "../loading/Loader";
 import { ErrorAlert } from "../error/Error";
 import { UserCards } from "../card/UserCard";
-import { selectIsLoading, selectWorks, selectError, selectTotalPage, getAllWorks } from "../../redux/WorkCardSlice";
+import { getAllWorks, allWorks, isWorkLoading, worksError } from "../../redux/WorkCardSlice";
 import styles from "./workContent.module.css";
 import { DefaultPagination } from "../pagination/Pagination";
 
 export const WorksContent = () => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-  const works = useSelector(selectWorks);
-  const totalPages = useSelector(selectTotalPage);
+   const dispatch = useDispatch();
+  const isLoading = useSelector(isWorkLoading);
+  const error = useSelector(worksError);
+  const [page, setPage] = useState(1);
+  const [works, setWorks] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+ 
+  const getAllWorks = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/works?page=${page}`);
+      const data = await response.json();
+      setWorks(data.payload); 
+      setTotalPages(data.totalPages); 
+    } catch (error) {
+      alert("Error fetching works:", error);
+    }
+  };
 
   useEffect(() => {
-    dispatch(getAllWorks(1));
-  }, [dispatch]);
+    getAllWorks();
+    window.scrollTo(0, 0);
+  }, [page]);
 
   const onPageChange = (newPage) => {
-    dispatch(getAllWorks(newPage)); 
+    setPage(newPage);
   };
 
   return (
@@ -45,10 +58,9 @@ export const WorksContent = () => {
 
       <DefaultPagination
         onPageChange={onPageChange}
-        currentPage={1}
-        totalPage={totalPages}
+        currentPage={page}
+        totalPage={totalPages} 
       />
     </div>
   );
 };
-

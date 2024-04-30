@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { selectIsLoading,selectError } from "../../redux/WorkCardSlice";
+import { isWorkLoading,worksError } from "../../redux/WorkCardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomSpinner } from "../loading/Loader";
 import { ErrorAlert } from "../error/Error";
@@ -12,8 +12,8 @@ import styles from "./detailContent.module.css"
 export const DetailContent = () => {
     const [work, setWork] = useState(null);
     const dispatch = useDispatch();
-    const isLoading = useSelector(selectIsLoading);
-    const error = useSelector(selectError);
+    const isLoading = useSelector(isWorkLoading);
+    const error = useSelector(worksError);
     const { _id } = useParams();
   
     const getDetailWork = async () => {

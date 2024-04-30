@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from "react";
 import { AddWorkModal } from "../addWorkModal/AddWorkModal";
 import {
   Card,
@@ -39,33 +39,27 @@ export function SidebarWithSearch() {
   
   const location = useLocation();
 
-  const handleJobFilterChange = (e) => {
-    const { value } = e.target;
-    setJobFilter(value);
-    setFiltered((prevFiltered) => ({
-      ...prevFiltered,
-      job: value
-    }));
-  };
+  const handleJobFilterChange=(e)=>{
+    const {value}=e.target 
+    setJobFilter(value)
+    if(value.lenght>0){
+      setFiltered(filtered.job)
+    }
+  }
   
   const handleLocationFilterChange=(e)=>{
     const {value}=e.target 
-    setLocationFilter(value);
-    setFiltered((prevFiltered)=>({
-      ...prevFiltered,
-      location:value
-    }))
+    setLocationFilter(value)
      }
-
+ 
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
   const handleOpenModal = () => setOpenModal(!openModal);
   const shouldShowAddWorkButton = location.pathname === "/professionals";
-  const showInput = location.pathname === "/professionals" || "/users"; 
-
-  console.log(filtered)
+  const showInput = location.pathname === "/professionals" && "/users"; 
+console.log(jobFilter,locationFilter,filtered)
    return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 flex items-center gap-4 p-4">
@@ -229,94 +223,3 @@ export function SidebarWithSearch() {
     </Card>
   );
 }
-// components/SidebarWithSearch.js
-// import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
-// import { setFiltered } from '../../redux/FilterSlice';
-// import { Typography, Input, Card, List, Accordion, ListItem, ListItemPrefix, AccordionHeader, AccordionBody, Button, Dialog } from "@material-tailwind/react";
-// import { PresentationChartBarIcon, ShoppingBagIcon, UserCircleIcon, Cog6ToothIcon, InboxIcon, PowerIcon } from "@heroicons/react/24/solid";
-// import { ChevronRightIcon, ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-
-// export const SidebarWithSearch = ({ filtered, setFiltered }) => {
-//   const [jobFilter, setJobFilter] = useState('');
-//   const [locationFilter, setLocationFilter] = useState('');
-//   const [open, setOpen] = useState(0);
-//   const [openModal, setOpenModal] = useState(false);
-
-//   const handleJobFilterChange = (e) => {
-//     const { value } = e.target;
-//     setJobFilter(value);
-//   };
-
-//   const handleLocationFilterChange = (e) => {
-//     const { value } = e.target;
-//     setLocationFilter(value);
-//   };
-
-//   useEffect(() => {
-//     setFiltered({ job: jobFilter, location: locationFilter });
-//   }, [jobFilter, locationFilter, setFiltered]);
-
-//   const handleOpen = (value) => {
-//     setOpen(open === value ? 0 : value);
-//   };
-
-//   const handleOpenModal = () => setOpenModal(!openModal);
-
-//   return (
-//     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
-//       <div className="mb-2 flex items-center gap-4 p-4">
-//         <img
-//           src="https://docs.material-tailwind.com/img/logo-ct-dark.png"
-//           alt="brand"
-//           className="h-8 w-8"
-//         />
-//         <Typography variant="h5" color="blue-gray">
-//           Just Do It
-//         </Typography>
-//       </div>
-//       <div className="p-2 m-2">
-//         <div>
-//           <Typography variant="h5" color="blue-gray">
-//             Job
-//           </Typography>
-//           <Input
-//             onChange={handleJobFilterChange}
-//             value={jobFilter}
-//             icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-//             label="Search"
-//           />
-//         </div>
-//         <div>
-//           <Typography variant="h5" color="blue-gray">
-//             Location
-//           </Typography>
-//           <Input
-//             onChange={handleLocationFilterChange}
-//             value={locationFilter}
-//             icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-//             label="Search"
-//           />
-//         </div>
-//       </div>
-//       <List>
-//         {/* Accordion items */}
-//         {/* ... */}
-//         {/* Other list items */}
-//         {/* ... */}
-//         <ListItem>
-//           <ListItemPrefix>
-//             <PowerIcon className="h-5 w-5" />
-//           </ListItemPrefix>
-//           Log Out
-//         </ListItem>
-//       </List>
-//     </Card>
-//   );
-// };
-
-// const mapStateToProps = (state) => ({
-//   filtered: state.filter.filtered
-// });
-
-// export default connect(mapStateToProps, { setFiltered });
