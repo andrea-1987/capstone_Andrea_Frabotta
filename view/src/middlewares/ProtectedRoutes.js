@@ -1,6 +1,7 @@
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
-import{ jwtDecode }from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; 
 
 const useAuth = () => {
     const token = localStorage.getItem("auth");

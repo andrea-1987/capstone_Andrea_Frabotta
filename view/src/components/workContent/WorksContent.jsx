@@ -1,38 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomSpinner } from "../loading/Loader";
 import { ErrorAlert } from "../error/Error";
 import { UserCards } from "../card/UserCard";
-import { getAllWorks, allWorks, isWorkLoading, worksError } from "../../redux/WorkCardSlice";
+import { selectIsLoading, selectWorks, selectError, selectTotalPage, getAllWorks } from "../../redux/WorkCardSlice";
 import styles from "./workContent.module.css";
 import { DefaultPagination } from "../pagination/Pagination";
 
 export const WorksContent = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(isWorkLoading);
-  const error = useSelector(worksError);
-  const [page, setPage] = useState(1);
-  const [works, setWorks] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
-
-  const getAllWorks = async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/works?page=${page}`);
-      const data = await response.json();
-      setWorks(data.payload); 
-      setTotalPages(data.totalPages); 
-    } catch (error) {
-      alert("Error fetching works:", error);
-    }
-  };
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+  const works = useSelector(selectWorks);
+  const totalPages = useSelector(selectTotalPage);
 
   useEffect(() => {
-    getAllWorks();
-    window.scrollTo(0, 0);
-  }, [page]);
+    dispatch(getAllWorks(1));
+  }, [dispatch]);
 
   const onPageChange = (newPage) => {
-    setPage(newPage);
+    dispatch(getAllWorks(newPage)); 
   };
 
   return (
@@ -58,73 +45,10 @@ export const WorksContent = () => {
 
       <DefaultPagination
         onPageChange={onPageChange}
-        currentPage={page}
-        totalPage={totalPages} 
+        currentPage={1}
+        totalPage={totalPages}
       />
     </div>
   );
 };
-
-
-
-
-
-// import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { CustomSpinner } from "../loading/Loader";
-// import { ErrorAlert } from "../error/Error";
-// import { UserCards } from "../card/UserCard";
-// import { getAllWorks, allWorks, isWorkLoading, worksError, selectTotalPage, selectTotalWorks, selectPageSize } from "../../redux/WorkCardSlice";
-// import { DefaultPagination } from "../pagination/Pagination";
-// import styles from "./workContent.module.css";
-
-// export const WorksContent = () => {
-//   const dispatch = useDispatch();
-//   const isLoading = useSelector(isWorkLoading);
-//   const error = useSelector(worksError);
-//   const works = useSelector(allWorks);
-//   const totalPage = useSelector(selectTotalPage);
-//   const totalWorks = useSelector(selectTotalWorks);
-//   const pageSize = useSelector(selectPageSize);
-//   const [page, setPage] = useState(1);
-
-//   useEffect(() => {
-//     dispatch(getAllWorks(page));
-//   }, [dispatch, page]);
-
-//   const onPageChange = (newPage) => {
-//     setPage(newPage);
-//   };
-
-//   return (
-//     <div className={styles.content}>
-//       {isLoading && <CustomSpinner />}
-//       {!isLoading && error && <ErrorAlert message="Ops! Qualcosa è andato storto" />}
-//       {!isLoading && !error && (
-//         works.payload &&
-//         works.payload.map((work) => (
-//           <div key={work._id}>
-//             <UserCards
-//               className={`${styles.card} size-24`}
-//               author={work.author}
-//               description={work.description}
-//               title={work.title}
-//               img={work.img}
-//               location={work.location}
-//               pubDate={work.pubDate}
-//             />
-//           </div>
-//         ))
-//       )}
-
-//       <DefaultPagination
-//         className={styles.pagination}
-//         onPageChange={onPageChange}
-//         currentPage={page}
-//         totalPage={totalPage}
-//       />
-//     </div>
-//   );
-// };
-
 
