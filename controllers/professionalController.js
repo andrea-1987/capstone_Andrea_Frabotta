@@ -23,6 +23,7 @@ exports.getSingleProfessional = async (req, res) => {
     res.status(200).send({
       statusCode: 200,
       message: `Professional with id ${id} correctly found`,
+      payload:professional
     });
   } catch (error) {
     res.status(500).send({

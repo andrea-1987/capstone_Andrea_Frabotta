@@ -26,7 +26,7 @@ export function UserRegistrationForm() {
         }
       );
       if (response.ok) {
-       navigate("/users")
+       navigate("/works")
        alert("User successfully create!")
        return response.json()
       } else {

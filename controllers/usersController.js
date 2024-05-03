@@ -22,7 +22,8 @@ exports.getSingleUsers= async(req,res)=>{
         const user = await UserModel.findById(id)
         res.status(200).send({
             statusCode:200,
-            message:`User with id ${id} correctly found`
+            message:`User with id ${id} correctly found`,
+            payload:user
         })
     } catch (error) {
         res.status(500).send({
@@ -42,6 +43,7 @@ exports.addUser=async(req,res)=>{
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword,
+        preferWorks:req.body.preferWorks
     })
     try {
         await newUser.save()
@@ -69,7 +71,7 @@ exports.updateUser=async(req,res)=>{
 
     try {
 
-        const updatedData = req.body;
+        const updatedData = {...req.body.preferWorks,...req.body};
         const options = { new: true };
 
         const result = await UserModel.findByIdAndUpdate(id, updatedData, options);
@@ -84,6 +86,12 @@ exports.updateUser=async(req,res)=>{
             })
     }
 };
+
+
+
+
+  
+  
 
 exports.deleteUser=async(req,res)=>{
     const {id}=req.params

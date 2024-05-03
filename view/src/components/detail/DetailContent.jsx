@@ -29,10 +29,10 @@ export const DetailContent = () => {
         if (data) {
           setWork(data); 
         } else {
-          throw new Error("Lavoro non trovato");
+          throw new Error("works not found");
         }
       } catch (error) {
-        console.error("Errore durante il recupero dei dati del lavoro:", error);
+        console.error("Error to find work", error);
       }
     };
   

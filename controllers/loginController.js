@@ -37,7 +37,8 @@ exports.toLoggIn = async (req, res) => {
             firstName: profile.firstName,
             lastName: profile.lastName,
             email: profile.email,
-            role: profile.role 
+            role: profile.role,
+            _id: profile._id,
         }, process.env.SECRET_KEY, {
             expiresIn: '24h'
         });
@@ -46,7 +47,8 @@ exports.toLoggIn = async (req, res) => {
         res.status(200).send({
             message: 'Login successful',
             statusCode: 200,
-            token
+            token,
+            _id:profile._id
         });
 
     } catch (e) {

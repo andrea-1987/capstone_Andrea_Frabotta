@@ -26,7 +26,7 @@ export function ProfessionalRegistrationForm() {
         }
       );
       if (response.ok) {
-            navigate("/professionals")
+            navigate("/works")
             alert("Professional successfully create!")
             return response.json()
       } else {

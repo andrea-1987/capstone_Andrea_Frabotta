@@ -36,6 +36,11 @@ const UserSchema = new mongoose.Schema(
       required: false,
       default: "user",
     },
+    preferWorks:{
+      type:[],
+      required: false,
+      default:[]
+    }
   },
   { timestamps: true, strict: true }
 );

@@ -3,21 +3,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { CustomSpinner } from "../loading/Loader";
 import { ErrorAlert } from "../error/Error";
 import { UserCards } from "../card/UserCard";
-import { getAllWorks, allWorks, isWorkLoading, worksError } from "../../redux/WorkCardSlice";
+import { isWorkLoading, worksError } from "../../redux/WorkCardSlice";
 import styles from "./workContent.module.css";
 import { DefaultPagination } from "../pagination/Pagination";
+import useSession from "../../hooks/useSession";
+import { jwtDecode } from "jwt-decode";
 
 export const WorksContent = () => {
-   const dispatch = useDispatch();
+  const session = localStorage.getItem("auth")
+  const decodedSession=jwtDecode(session)
+  const isAuthenticated = useSession();
+    
   const isLoading = useSelector(isWorkLoading);
   const error = useSelector(worksError);
-  const [page, setPage] = useState(1);
+   const [page, setPage] = useState(1);
   const [works, setWorks] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
+  
  
   const getAllWorks = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/works?page=${page}`);
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/works?page=${page}`,{
+        method: 'GET',
+        headers: {
+            "Content-type": 'application/json',
+            "authorization": decodedSession
+        }
+    });
       const data = await response.json();
       setWorks(data.payload); 
       setTotalPages(data.totalPages); 
@@ -29,18 +41,18 @@ export const WorksContent = () => {
   useEffect(() => {
     getAllWorks();
     window.scrollTo(0, 0);
+    
   }, [page]);
 
   const onPageChange = (newPage) => {
     setPage(newPage);
   };
-
   return (
     <div className={`${styles.content}`}>
       {isLoading && <CustomSpinner />}
       {!isLoading && error && <ErrorAlert message="Ops! Qualcosa è andato storto" />}
-      {!isLoading && !error && (
-        works.map((work) => (
+      {isAuthenticated &&!isLoading && !error && (
+    works.map((work) => (
           <div key={work._id}>
             <UserCards
               className={`${styles.card}`}
@@ -64,3 +76,4 @@ export const WorksContent = () => {
     </div>
   );
 };
+

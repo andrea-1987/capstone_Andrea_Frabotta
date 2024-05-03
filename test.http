@@ -1,5 +1,5 @@
 //---Users---\\
-GET http://localhost:4040/users
+GET http://localhost:4040/user
 
 ####
 POST http://localhost:4040/createUser
@@ -15,10 +15,10 @@ Content-Type: application/json
 
 ####
 
-GET http://localhost:4040/users/66202feecee0ac9bc580adb3
+GET http://localhost:4040/user/66351783e2bb5d7c2eea60dd
 
 ####
-PATCH http://localhost:4040/users/update/66202feecee0ac9bc580adb3
+PATCH http://localhost:4040/user/update/66202feecee0ac9bc580adb3
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ DELETE http://localhost:4040/users/delete/
 //--Professional--\\
 
 ####
-GET http://localhost:4040/professionals
+GET http://localhost:4040/professional
 
 ####
 
@@ -51,6 +51,9 @@ Content-Type: application/json
 ####
 
 GET http://localhost:4040/professional/6620309ef1edc63d989633fc
+
+####
+POST http://localhost:4040/professional/6620309ef1edc63d989633fc
 
 ####
 PATCH http://localhost:4040/professional/update/6620309ef1edc63d989633fc

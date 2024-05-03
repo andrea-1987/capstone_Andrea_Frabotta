@@ -53,6 +53,23 @@ exports.getSingleWork = async (req, res) => {
   }
 };
 
+exports.addSingleWork = async (req, res) => {
+  const {id}=req.params;
+    try {
+    const work = await WorksModel.findById(id);
+    res.status(200).send({
+      statusCode: 200,
+      message: `Works with id ${id} correctly found`,
+      payload:work
+    });
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Internal server error",
+    });
+  }
+}
+
 exports.addWork = async (req, res) => {
   const newWork = new WorksModel({
     author: req.body.author,

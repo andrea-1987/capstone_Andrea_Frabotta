@@ -38,7 +38,6 @@ const worksSlice = createSlice({
         });
     },
   });
-  
 
 export const allWorks = (state) => state.worksData.works;
 export const isWorkLoading = (state) => state.worksData.isLoading;
