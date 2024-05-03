@@ -132,6 +132,7 @@ import React from "react";
 import { useNavigate} from "react-router-dom";
 import { Card, CardHeader, CardBody, Typography, Button } from "@material-tailwind/react";
 import { jwtDecode } from "jwt-decode";
+import styles from "./card.module.css";
 
 export function UserCards({ author, title, description, pubDate, img, location, _id }) {
   const navigate = useNavigate();
@@ -175,7 +176,7 @@ export function UserCards({ author, title, description, pubDate, img, location, 
     }
   };
   return (
-    <Card className="w-full max-w-[48rem] flex-row">
+    <Card className={`w-full max-w-[48rem] flex-row `}>
       <CardHeader
         shadow={false}
         floated={false}

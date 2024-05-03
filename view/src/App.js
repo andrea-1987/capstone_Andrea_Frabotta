@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { ProtectedRoutes } from "./middlewares/ProtectedRoutes";
 import { UserPage } from "./pages/UserPage";
-import { ProfessionalPage } from "./pages/ProfessionalPage";
 import { DetailPage } from "./pages/DetailPage";
 import LoggedPage from "./pages/LoggedPage";
 
@@ -15,7 +14,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="/works" element={<LoggedPage />} />
           <Route path="/user/:_id" element={<UserPage />} />
-            <Route path="/professional/:_id" element={<ProfessionalPage />} />
+            <Route path="/professional/:_id" element={<UserPage/>} />
           <Route path="/works/:_id" element={<DetailPage />} />
         </Route>
       </Routes>

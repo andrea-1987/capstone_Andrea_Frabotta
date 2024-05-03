@@ -16,23 +16,42 @@ exports.getUsers= async(req,res)=>{
     }
 };
 
-exports.getSingleUsers= async(req,res)=>{
-    const {id}= req.params
-    try {
-        const user = await UserModel.findById(id)
-        res.status(200).send({
-            statusCode:200,
-            message:`User with id ${id} correctly found`,
-            payload:user
-        })
-    } catch (error) {
-        res.status(500).send({
-            statusCode:500,
-            message:"Internal server error"
-        })
-    }
-};
 
+exports.getSingleUsers = async (req, res) => {
+    const { id } = req.params;
+    const { page = 1, pageSize = 3 } = req.query;
+  
+    try {
+      const user = await UserModel.findById(id);
+  
+      if (!user) {
+        return res.status(404).send({
+          statusCode: 404,
+          message: `User with id ${id} not found`,
+        });
+      }
+  
+      const preferWorks = await UserModel.find({ _id: id }, { preferWorks: { $slice: [(page - 1) * pageSize, pageSize] } });
+  
+      const totalPreferWorks = user.preferWorks.length;
+  
+      res.status(200).send({
+        currentPage: page,
+        pageSize,
+        totalPages: Math.ceil(totalPreferWorks / pageSize),
+        statusCode: 200,
+        message: `User with id ${id} correctly found`,
+        payload: user,
+      });
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).send({
+        statusCode: 500,
+        message: "Internal server error",
+      });
+    }
+  };
+  
 exports.addUser=async(req,res)=>{
     
     const salt = await bcrypt.genSalt(10)

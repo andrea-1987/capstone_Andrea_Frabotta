@@ -8,13 +8,14 @@ import {
   Dialog,
 } from "@material-tailwind/react";
 import { LoginForm } from "../loginForm/LoginForm";
+import { jwtDecode } from "jwt-decode";
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-
+  
   const navigate = useNavigate();
-
+  
   const handleOpen = () => setOpen(!open);
   const handleLogOut = () => {
     localStorage.clear();
@@ -23,14 +24,24 @@ export function StickyNavbar() {
   const handleHome = () => {
     navigate("/");
   };
-
+  
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-
+  const session = localStorage.getItem('auth');
+  const decodedSession = session ? jwtDecode(session) : null;
+  const Welcome = () => {
+    if(session !==""){
+    return (
+      
+        <h2>{session ? `Welcome ${decodedSession.firstName.toUpperCase()} ${decodedSession.lastName.toUpperCase()}` : "Welcome"}</h2>
+   
+    );}else {<h2> "Welcome"</h2>}
+  }
+  
   return (
     <div className="-m-6 max-h-[768px] w-[calc(100%+48px)] overflow-scroll">
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 ">
@@ -46,7 +57,9 @@ export function StickyNavbar() {
           <div className="flex items-center gap-4">
             <div>
               <div>
-                <h2>{`Welcome `}</h2>
+                <h2 >
+                  {Welcome()}
+                </h2>
               </div>
             </div>
             <div className="flex items-center gap-x-1">

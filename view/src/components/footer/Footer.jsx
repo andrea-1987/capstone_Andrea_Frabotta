@@ -8,7 +8,7 @@ const SITEMAP = [
   },
   {
     title: "Help Center",
-    links: ["Discord", "Twitter", "GitHub", "Contact Us"],
+    links: ["Facebook", "Twitter", "GitHub", "Contact Us"],
   },
   {
     title: "Resources",
@@ -16,7 +16,7 @@ const SITEMAP = [
   },
   {
     title: "Products",
-    links: ["Templates", "UI Kits", "Icons", "Mockups"],
+    links: ["Find Jobs", "Show your Job", "Call for Job", "Some Feature"],
   },
 ];
  

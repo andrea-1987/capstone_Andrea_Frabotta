@@ -33,6 +33,7 @@ export const WorksContent = () => {
       const data = await response.json();
       setWorks(data.payload); 
       setTotalPages(data.totalPages); 
+      console.log (totalPages)
     } catch (error) {
       alert("Error fetching works:", error);
     }

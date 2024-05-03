@@ -1,6 +1,6 @@
 import React from "react";
 import { MainLayout } from "../layout/MainLayout";
-import { UserContent } from "../components/user/UserContent";
+import { PersonalContent} from "../components/personal/PersonalContent";
 import { jwtDecode } from "jwt-decode";
 
 export const UserPage = () => {
@@ -8,7 +8,7 @@ export const UserPage = () => {
   const decodedSession = jwtDecode(session)
   return (
     <MainLayout>
-      <UserContent />
+      <PersonalContent/>
     </MainLayout>
   );
 };
