@@ -9,10 +9,11 @@ import { DefaultPagination } from "../pagination/Pagination";
 import useSession from "../../hooks/useSession";
 import { worksError,isWorkLoading } from "../../redux/WorkCardSlice";
 import { useSelector } from "react-redux";
+// import { sessionData } from "../../helper/session";
 
 export const PersonalContent = () => {
-  const session = localStorage.getItem("auth")
-  const decodedSession=jwtDecode(session)
+  const sessionData=jwtDecode(localStorage.getItem("auth"))
+
   const isAuthenticated = useSession();
   const isLoading = useSelector(isWorkLoading);
   const error = useSelector(worksError);
@@ -23,22 +24,22 @@ export const PersonalContent = () => {
 
   const privatePage=async()=>{
     try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/${decodedSession.role}/${decodedSession._id}?page=${page}`,{
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/${sessionData.role}/${sessionData._id}?page=${page}`,{
         method: 'GET',
         headers: {
           "Content-type": 'application/json',
-          "authorization": decodedSession
+          "authorization": sessionData
         }
       });
       const data = await response.json();
 
       setWorks(data.payload); 
       setTotalPages(data.totalPages); 
+      console.log(data.payload.preferWorks)
     
         } catch (error) {
       alert("Error fetching works:", error);
     }
-    console.log(works.preferWorks)
   };
   useEffect(()=>{
     privatePage();
@@ -53,10 +54,9 @@ export const PersonalContent = () => {
       <div className={`${styles.main}`}>
       {isLoading && <CustomSpinner />}
       {!isLoading && error && <ErrorAlert message="Ops! Qualcosa è andato storto" />}
-      {isAuthenticated &&!isLoading && !error && (
-        works.preferWorks &&
-    works.preferWorks.map((work) => (
-          <div key={work._id}>
+      {isAuthenticated && !isLoading && !error && works && works.preferWorks && (
+  works.preferWorks.map((work) => (
+    <div key={work._id}>
             <UserCards
               author={work.author}
               description={work.description}

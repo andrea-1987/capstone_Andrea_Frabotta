@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { CustomSpinner } from "../loading/Loader";
 import { ErrorAlert } from "../error/Error";
 import { UserCards } from "../card/UserCard";
@@ -8,10 +8,11 @@ import styles from "./workContent.module.css";
 import { DefaultPagination } from "../pagination/Pagination";
 import useSession from "../../hooks/useSession";
 import { jwtDecode } from "jwt-decode";
+import sessionData from "../../helper/session";
 
 export const WorksContent = () => {
-  const session = localStorage.getItem("auth")
-  const decodedSession=jwtDecode(session)
+  // const session = localStorage.getItem("auth")
+  // const decodedSession=jwtDecode(session)
   const isAuthenticated = useSession();
     
   const isLoading = useSelector(isWorkLoading);
@@ -27,7 +28,7 @@ export const WorksContent = () => {
         method: 'GET',
         headers: {
             "Content-type": 'application/json',
-            "authorization": decodedSession
+            "authorization": sessionData
         }
     });
       const data = await response.json();

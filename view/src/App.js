@@ -4,6 +4,7 @@ import { ProtectedRoutes } from "./middlewares/ProtectedRoutes";
 import { UserPage } from "./pages/UserPage";
 import { DetailPage } from "./pages/DetailPage";
 import LoggedPage from "./pages/LoggedPage";
+import MyWorks from "./pages/MyWorks";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/works" element={<LoggedPage />} />
           <Route path="/user/:_id" element={<UserPage />} />
             <Route path="/professional/:_id" element={<UserPage/>} />
+            <Route path="/professional/:_id/myWorks" element={<MyWorks/>} />
           <Route path="/works/:_id" element={<DetailPage />} />
         </Route>
       </Routes>

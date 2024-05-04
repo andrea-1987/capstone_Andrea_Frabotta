@@ -1,6 +1,7 @@
 const express=require("express");
 const router = express.Router();
 const professionalController= require("../controllers/professionalController");
+const workController= require("../controllers/worksController");
 const validateProfessional = require("../middlewares/validateProfessionalBody");
 const verified = require("../middlewares/verifyToken");
 
@@ -8,7 +9,11 @@ router.get("/professional",verified,professionalController.getProfessional);
 
 router.get("/professional/:id", professionalController.getSingleProfessional);
 
+router.get("/professional/:id/myWorks",workController.getWorks);
+
 router.post("/createProfessional",validateProfessional,professionalController.addProfessional);
+
+router.post("/professional/:id/myWorks",workController.addWork);
 
 router.patch("/professional/update/:id",professionalController.updateProfessional);
 

@@ -6,7 +6,7 @@ exports.getProfessional = async (req, res) => {
     const professionals = await ProfessionalModel.find();
     res.status(200).send({
       statusCode: 200,
-      payload: professionals,
+      payload: professionals
     });
   } catch (error) {
     res.status(500).send({
@@ -15,6 +15,44 @@ exports.getProfessional = async (req, res) => {
     });
   }
 };
+
+// exports.getSingleProfessional = async (req, res) => {
+//   const { id } = req.params;
+//   const { page = 1, pageSize = 3 } = req.query;
+
+//   try {
+//     const professional = await ProfessionalModel.findById(id);
+
+//     if (!professional) {
+//       return res.status(404).send({
+//         statusCode: 404,
+//         message: `Professional with id ${id} not found`,
+//       });
+//     }
+
+//     const preferWorks = await ProfessionalModel.find(
+//       { _id: id },
+//       { preferWorks: { $slice: [(page - 1) * pageSize, pageSize] } }
+//     );
+
+//     const totalPreferWorks = professional.preferWorks.length;
+
+//     res.status(200).send({
+//       currentPage: page,
+//       pageSize,
+//       totalPages: Math.ceil(totalPreferWorks / pageSize),
+//       statusCode: 200,
+//       message: `User with id ${id} correctly found`,
+//       payload: professional
+//     });
+//   } catch (error) {
+//     console.error("Error fetching user:", error);
+//     res.status(500).send({
+//       statusCode: 500,
+//       message: "Internal server error",
+//     });
+//   }
+// };
 
 exports.getSingleProfessional = async (req, res) => {
   const { id } = req.params;
@@ -30,9 +68,24 @@ exports.getSingleProfessional = async (req, res) => {
       });
     }
 
-    const preferWorks = await ProfessionalModel.find({ _id: id }, { preferWorks: { $slice: [(page - 1) * pageSize, pageSize] } });
+    const preferWorks = await ProfessionalModel.find(
+      { _id: id },
+      { preferWorks: { $slice: [(page - 1) * pageSize, pageSize] } }
+    );
+
+    const myWorks = await ProfessionalModel.find(
+      { _id: id },
+      { myWorks: { $slice: [(page - 1) * pageSize, pageSize] } }
+    );
 
     const totalPreferWorks = professional.preferWorks.length;
+    const totalMyWorks = professional.myWorks.length;
+
+    const payload = {
+      ...professional.toObject(),
+      preferWorks,
+      myWorks,
+    };
 
     res.status(200).send({
       currentPage: page,
@@ -40,7 +93,46 @@ exports.getSingleProfessional = async (req, res) => {
       totalPages: Math.ceil(totalPreferWorks / pageSize),
       statusCode: 200,
       message: `User with id ${id} correctly found`,
-      payload: professional,
+      payload,
+    });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).send({
+      statusCode: 500,
+      message: "Internal server error",
+    });
+  }
+};
+
+
+exports.getMyWorks = async (req, res) => {
+  const { id } = req.params;
+  const { page = 1, pageSize = 3 } = req.query;
+
+  try {
+    const professional = await ProfessionalModel.findById(id);
+
+    if (!professional) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: `Professional with id ${id} not found`,
+      });
+    }
+
+    const myWorks = await ProfessionalModel.find(
+      { _id: id },
+      { myWorks: { $slice: [(page - 1) * pageSize, pageSize] } }
+    );
+
+    const totalMyWorks = professional.myWorks.length;
+
+    res.status(200).send({
+      currentPage: page,
+      pageSize,
+      totalPages: Math.ceil(totalMyWorks / pageSize),
+      statusCode: 200,
+      message: `User with id ${id} correctly found`,
+      payload: professional,myWorks
     });
   } catch (error) {
     console.error("Error fetching user:", error);
@@ -61,8 +153,8 @@ exports.addProfessional = async (req, res) => {
     email: req.body.email,
     password: hashedPassword,
     job: req.body.job,
-    preferWorks:req.body.preferWorks,
-    myWorks:req.body.myWorks,
+    preferWorks: req.body.preferWorks,
+    myWorks: req.body.myWorks,
   });
   try {
     await newProfessional.save();
@@ -83,7 +175,6 @@ exports.addWorkToMyWorks = async (req, res) => {
   const { workId } = req.body;
 
   try {
-    // Trova il professionista dal suo ID
     const professional = await ProfessionalModel.findById(id);
     if (!professional) {
       return res.status(404).send({
@@ -92,16 +183,14 @@ exports.addWorkToMyWorks = async (req, res) => {
       });
     }
 
-    // Aggiungi il lavoro al campo myworks del professionista
     professional.myWorks.push(workId);
 
-    // Salva le modifiche al professionista nel database
     await professional.save();
 
     res.status(200).send({
       statusCode: 200,
       message: `Work with ID ${workId} added to myWorks of professional with ID ${id}`,
-      payload: professional,
+      payload: myWorks,
     });
   } catch (error) {
     res.status(500).send({
@@ -110,7 +199,6 @@ exports.addWorkToMyWorks = async (req, res) => {
     });
   }
 };
-
 
 exports.updateProfessional = async (req, res) => {
   const { id } = req.params;

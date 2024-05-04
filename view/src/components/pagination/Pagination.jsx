@@ -4,7 +4,6 @@ import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 export function DefaultPagination({ currentPage, totalPage, onPageChange }) {
 
-
   const prev = () => {
     if (currentPage === 1) return;
     onPageChange(currentPage - 1);

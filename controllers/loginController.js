@@ -39,10 +39,11 @@ exports.toLoggIn = async (req, res) => {
             email: profile.email,
             role: profile.role,
             _id: profile._id,
+            // preferWorks: profile.preferWorks ? profile.preferWorks : undefined,
+            // myWorks: profile.myWorks ? profile.myWorks : undefined,
         }, process.env.SECRET_KEY, {
             expiresIn: '24h'
         });
-
         res.setHeader('authorization', token);
         res.status(200).send({
             message: 'Login successful',
@@ -57,6 +58,6 @@ exports.toLoggIn = async (req, res) => {
             statusCode: 500
         });
     }
-};
+  };
 
 

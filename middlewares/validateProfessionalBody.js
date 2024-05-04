@@ -6,8 +6,9 @@ const validateProfessionalBody = (req, res, next) => {
         lastName,
         email,
         password,
-        age,
-        job
+        job,
+        preferWorks,
+        myWorks
     } = req.body;
 
     if (typeof firstName !== 'string') {
@@ -29,7 +30,7 @@ const validateProfessionalBody = (req, res, next) => {
     if (typeof job !== "string"){
         errors.push("Job must be a string")
     }
-
+        
     if (errors.length > 0) {
         res.status(400).send({ errors })
     } 
