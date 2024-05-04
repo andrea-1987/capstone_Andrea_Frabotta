@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { SidebarWithSearch } from "../sidebar/SideBar";
 import styles from "./personalContent.module.css";
-import { jwtDecode } from "jwt-decode";
 import { UserCards } from "../card/UserCard";
 import { CustomSpinner } from "../loading/Loader";
 import { ErrorAlert } from "../error/Error";
@@ -9,10 +8,10 @@ import { DefaultPagination } from "../pagination/Pagination";
 import useSession from "../../hooks/useSession";
 import { worksError,isWorkLoading } from "../../redux/WorkCardSlice";
 import { useSelector } from "react-redux";
-// import { sessionData } from "../../helper/session";
+import sessionData from "../../helper/session";
 
 export const PersonalContent = () => {
-  const sessionData=jwtDecode(localStorage.getItem("auth"))
+
 
   const isAuthenticated = useSession();
   const isLoading = useSelector(isWorkLoading);
@@ -24,7 +23,7 @@ export const PersonalContent = () => {
 
   const privatePage=async()=>{
     try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/${sessionData.role}/${sessionData._id}?page=${page}`,{
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/${sessionData.role}/${sessionData._id}/preferWorks?page=${page}`,{
         method: 'GET',
         headers: {
           "Content-type": 'application/json',
@@ -33,7 +32,7 @@ export const PersonalContent = () => {
       });
       const data = await response.json();
 
-      setWorks(data.payload); 
+      setWorks(data.payload.preferWorks); 
       setTotalPages(data.totalPages); 
       console.log(data.payload.preferWorks)
     
@@ -54,8 +53,8 @@ export const PersonalContent = () => {
       <div className={`${styles.main}`}>
       {isLoading && <CustomSpinner />}
       {!isLoading && error && <ErrorAlert message="Ops! Qualcosa è andato storto" />}
-      {isAuthenticated && !isLoading && !error && works && works.preferWorks && (
-  works.preferWorks.map((work) => (
+      {isAuthenticated && !isLoading && !error && works && works[0].preferWorks && (
+  works[0].preferWorks.map((work) => (
     <div key={work._id}>
             <UserCards
               author={work.author}

@@ -8,11 +8,15 @@ router.get("/professional",verified,professionalController.getProfessional);
 
 router.get("/professional/:id", professionalController.getSingleProfessional);
 
-router.get("/professional/:id/myWorks",professionalController.getSingleProfessional);
+router.get("/professional/:id/preferWorks", professionalController.getPreferWorks);
+
+router.get("/professional/:id/myWorks",professionalController.getMyWorks);
 
 router.post("/createProfessional",validateProfessional,professionalController.addProfessional);
 
 router.post("/professional/:id/myWorks",professionalController.addWorkToMyWorks);
+
+router.post("/professional/:id/preferWorks",professionalController.addWorkToPreferWorks);
 
 router.patch("/professional/update/:id",professionalController.updateProfessional);
 

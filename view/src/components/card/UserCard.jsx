@@ -1,28 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate} from "react-router-dom";
 import { Card, CardHeader, CardBody, Typography, Button } from "@material-tailwind/react";
-import { jwtDecode } from "jwt-decode";
-import styles from "./card.module.css";
+import sessionData from "../../helper/session";
+
 
 export function UserCards({ author, title, description, pubDate, img, location, _id }) {
   const navigate = useNavigate();
+
   
 
   const handleDetailPage = () => {
     navigate(`/works/${_id}`);
   };
-
+console.log(sessionData)
   const handleSave = async () => {
     try {
-      const session = localStorage.getItem("auth");
-      const decodedSession = jwtDecode(session);
       
-      console.log(decodedSession)
-      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/${decodedSession.role}/update/${decodedSession._id}`, {
-        method: 'PATCH',
+      
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/${sessionData.role}${sessionData._id}/preferWorks`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session}` 
+          'Authorization': `Bearer ${sessionData}` 
         },
         body: JSON.stringify({
           preferWorks: [{ 
@@ -37,14 +36,14 @@ export function UserCards({ author, title, description, pubDate, img, location, 
         }),
       });
       
-         if (response.ok) {
-                    } else {
-        console.error('Errore durante il salvataggio del lavoro:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Errore durante il salvataggio del lavoro:', error);
-    }
-  };
+      if (response.ok) {
+      } else {
+    console.error('Errore durante il salvataggio del lavoro:', response.statusText);
+  }
+} catch (error) {
+  console.error('Errore durante il salvataggio del lavoro:', error);
+}
+};
   return (
     <Card className={`w-full max-w-[48rem] flex-row `}>
       <CardHeader

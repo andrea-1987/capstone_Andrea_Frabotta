@@ -83,9 +83,9 @@ export function SidebarWithSearch() {
     try {
       const role = sessionData.role;
       if (role === "user") {
-        navigate(`/user/${sessionData._id}`);
+        navigate(`/user/${sessionData._id}/preferWorks`);
       } else if (role === "professional") {
-        navigate(`/professional/${sessionData._id}`);
+        navigate(`/professional/${sessionData._id}/preferWorks`);
       } else {
         alert("Unknown role");
       }
