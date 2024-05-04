@@ -2,11 +2,11 @@ import React from 'react'
 import { MainLayout } from '../layout/MainLayout'
 import { WorksContent } from '../components/workContent/WorksContent'
 import { SidebarWithSearch } from '../components/sidebar/SideBar'
-import { jwtDecode } from 'jwt-decode'
+import sessionData from '../helper/session'
 
 const LoggedPage = () => {
-    const session = localStorage.getItem("auth")
-    const decodedSession=jwtDecode(session)
+if(sessionData){
+
   return (
       <MainLayout class="justify-center mx-2">
       <div class="flex mx-2">
@@ -15,6 +15,7 @@ const LoggedPage = () => {
   </div>
   </MainLayout>
   )
+}
 }
 
 export default LoggedPage
