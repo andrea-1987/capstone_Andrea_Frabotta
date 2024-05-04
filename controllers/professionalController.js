@@ -16,43 +16,6 @@ exports.getProfessional = async (req, res) => {
   }
 };
 
-// exports.getSingleProfessional = async (req, res) => {
-//   const { id } = req.params;
-//   const { page = 1, pageSize = 3 } = req.query;
-
-//   try {
-//     const professional = await ProfessionalModel.findById(id);
-
-//     if (!professional) {
-//       return res.status(404).send({
-//         statusCode: 404,
-//         message: `Professional with id ${id} not found`,
-//       });
-//     }
-
-//     const preferWorks = await ProfessionalModel.find(
-//       { _id: id },
-//       { preferWorks: { $slice: [(page - 1) * pageSize, pageSize] } }
-//     );
-
-//     const totalPreferWorks = professional.preferWorks.length;
-
-//     res.status(200).send({
-//       currentPage: page,
-//       pageSize,
-//       totalPages: Math.ceil(totalPreferWorks / pageSize),
-//       statusCode: 200,
-//       message: `User with id ${id} correctly found`,
-//       payload: professional
-//     });
-//   } catch (error) {
-//     console.error("Error fetching user:", error);
-//     res.status(500).send({
-//       statusCode: 500,
-//       message: "Internal server error",
-//     });
-//   }
-// };
 
 exports.getSingleProfessional = async (req, res) => {
   const { id } = req.params;
@@ -172,7 +135,14 @@ exports.addProfessional = async (req, res) => {
 
 exports.addWorkToMyWorks = async (req, res) => {
   const { id } = req.params;
-  const { workId } = req.body;
+  const { author, title, description, img, location } = req.body;
+
+   if (!author || !title || !description || !img) {
+    return res.status(400).send({
+      statusCode: 400,
+      message: "Missing required fields: author, title, description, img",
+    });
+  }
 
   try {
     const professional = await ProfessionalModel.findById(id);
@@ -183,22 +153,32 @@ exports.addWorkToMyWorks = async (req, res) => {
       });
     }
 
-    professional.myWorks.push(workId);
+    professional.myWorks.push({
+      author,
+      title,
+      description,
+      img,
+      location,
+    });
 
     await professional.save();
 
+    const addedWork = professional.myWorks[professional.myWorks.length - 1];
+
     res.status(200).send({
       statusCode: 200,
-      message: `Work with ID ${workId} added to myWorks of professional with ID ${id}`,
-      payload: myWorks,
+      message: `Work added to myWorks of professional with ID ${id}`,
+      work: addedWork,
     });
   } catch (error) {
+    console.error('Error adding work to myWorks:', error);
     res.status(500).send({
       statusCode: 500,
       message: "Internal server error",
     });
   }
 };
+
 
 exports.updateProfessional = async (req, res) => {
   const { id } = req.params;

@@ -7,8 +7,6 @@ const validateProfessionalBody = (req, res, next) => {
         email,
         password,
         job,
-        preferWorks,
-        myWorks
     } = req.body;
 
     if (typeof firstName !== 'string') {

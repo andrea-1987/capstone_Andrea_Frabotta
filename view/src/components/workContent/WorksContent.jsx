@@ -7,12 +7,10 @@ import { isWorkLoading, worksError } from "../../redux/WorkCardSlice";
 import styles from "./workContent.module.css";
 import { DefaultPagination } from "../pagination/Pagination";
 import useSession from "../../hooks/useSession";
-import { jwtDecode } from "jwt-decode";
 import sessionData from "../../helper/session";
 
 export const WorksContent = () => {
-  // const session = localStorage.getItem("auth")
-  // const decodedSession=jwtDecode(session)
+
   const isAuthenticated = useSession();
     
   const isLoading = useSelector(isWorkLoading);

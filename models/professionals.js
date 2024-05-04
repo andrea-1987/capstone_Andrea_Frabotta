@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
+const WorksSchema= require("./works")
 
 const ProfessionalSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      require: true,
-      max: 255,
+      required: true,
+      maxlength: 255,
     },
     lastName: {
       type: String,
@@ -18,16 +19,14 @@ const ProfessionalSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      min: 8,
+      minlength: 8,
     },
     age: {
       type: Number,
-      required: false,
       default: 0,
     },
     icon: {
       type: String,
-      required: false,
       default:
         "https://static.vecteezy.com/system/resources/previews/000/649/115/original/user-icon-symbol-sign-vector.jpg",
     },
@@ -37,25 +36,68 @@ const ProfessionalSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      require: false,
       default: "professional",
     },
-    preferWorks: {
-      type: [],
-      required: false,
-      default: [],
-    },
-    myWorks:{
-      type:[],
-      required:false,
-      default:[]
-    }
+    preferWorks:[{
+      author: {
+        type: String,
+        required: true,
+        max: 40,
+      },
+      title: {
+        type: String,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      img: {
+        type: String,
+        required: true,
+      },
+      location:{
+        type:String,
+        required:true,
+        default :"unknown"
+      },
+      pubDate:{
+        type:Date,
+        required:false,
+        default:Date.now()
+      }
+    }],
+    myWorks: [{
+      author: {
+        type: String,
+        required: true,
+        max: 40,
+      },
+      title: {
+        type: String,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      img: {
+        type: String,
+        required: true,
+      },
+      location:{
+        type:String,
+        required:false,
+        default :"unknown"
+      },
+      pubDate:{
+        type:Date,
+        required:false,
+        default:Date.now()
+      }
+    }],
   },
-  { timestamps: true, strict: true }
+  { timestamps: true }
 );
 
-module.exports = mongoose.model(
-  "ProfessionalModel",
-  ProfessionalSchema,
-  "professionals"
-);
+module.exports = mongoose.model("ProfessionalModel", ProfessionalSchema, "professionals");

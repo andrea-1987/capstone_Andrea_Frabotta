@@ -12,7 +12,17 @@ Content-Type: application/json
     "password":"gojoforever",
     "age":35
 }
+####
+POST http://localhost:4040/professional/66366ef440cb09eb0d3a0491/myWorks
+Content-Type: application/json
 
+{
+    "author":"Andrea",
+    "title":"Frabotta",
+    "description":"io.mestesso@hotmail.com",
+    "img":"https://static.vecteezy.com/system/resources/previews/000/649/115/original/user-icon-symbol-sign-vector.jpg",
+ 
+}
 ####
 
 GET http://localhost:4040/user/66351783e2bb5d7c2eea60dd

@@ -83,6 +83,7 @@ exports.addWork = async (req, res) => {
     res.status(201).send({
       statusCode: 201,
       message: "Work successfully added",
+      workID:newWork._id
     });
   } catch (error) {
     res.status(500).send({

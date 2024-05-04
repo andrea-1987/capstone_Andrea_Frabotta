@@ -42,47 +42,55 @@ export const AddWorkModal = () => {
 
   const submitWork = async (e) => {
     e.preventDefault();
-    if (file) {
-      try {
-        const uploadedFile = await uploadFile();
-        const bodyToSend = {
-          ...formData,
-          img: uploadedFile.source,
-        };
-        const response = await fetch(
-          `${process.env.REACT_APP_SERVER_BASE_URL}/createWork`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(bodyToSend),
-          }
-        );
-        if (response.ok) {
-        } else {
-          throw new Error("Failed to create work in the general area");
-        }
 
-        const professionalResponse = await fetch(
-          `${process.env.REACT_APP_SERVER_BASE_URL}/professional/${sessionData._id}/myWorks`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(bodyToSend),
-          }
-        );
-        if (professionalResponse.ok) {
-        } else {
-          throw new Error("Failed to create work in the professional area");
-        }
-      } catch (error) {
-        alert("Submit work failed: " + error.message);
-      }
-    } else {
+    if (!file) {
       alert("No file selected");
+      return;
+    }
+
+    try {
+      const uploadedFile = await uploadFile();
+      const bodyToSend = {
+        ...formData,
+        img: uploadedFile.source,
+      };
+
+      const generalWorkResponse = await fetch(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/createWork`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyToSend),
+        }
+      );
+
+      if (!generalWorkResponse.ok) {
+        throw new Error("Failed to create work in the general area");
+      }
+
+      const bodyToSendProfessional = {
+        ...formData,
+        img: uploadedFile.source,
+      };
+
+      const professionalWorkResponse = await fetch(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/professional/${sessionData._id}/myWorks`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyToSendProfessional),
+        }
+      );
+
+      if (!professionalWorkResponse.ok) {
+        throw new Error("Failed to create work in the professional area");
+      }
+    } catch (error) {
+      alert("Submit work failed: " + error.message);
     }
   };
 
