@@ -21,10 +21,8 @@ exports.getMyWorks = async (req, res) => {
   const { page = 1, pageSize = 3 } = req.query;
 
   try {
-    const professional = await ProfessionalModel.findById(id)
-    .limit(pageSize)
-    .skip((page-1)*pageSize)
-    .sort({pubDate:-1})
+    const professional = await ProfessionalModel.findById(id);
+
     if (!professional) {
       return res.status(404).send({
         statusCode: 404,
@@ -41,7 +39,6 @@ exports.getMyWorks = async (req, res) => {
 
     const payload = {
       ...professional.toObject(),
-      preferWorks,
       myWorks,
     };
 
@@ -62,15 +59,13 @@ exports.getMyWorks = async (req, res) => {
   }
 };
 
+
 exports.getPreferWorks = async (req, res) => {
   const { id } = req.params;
   const { page = 1, pageSize = 3 } = req.query;
 
   try {
-    const professional = await ProfessionalModel.findById(id)
-      .limit(pageSize)
-      .skip((page - 1) * pageSize)
-      .sort({ pubDate: -1 });
+    const professional = await ProfessionalModel.findById(id);
 
     if (!professional) {
       return res.status(404).send({
@@ -80,6 +75,7 @@ exports.getPreferWorks = async (req, res) => {
     }
 
     const preferWorks = professional.preferWorks.slice((page - 1) * pageSize, page * pageSize);
+
     const totalPreferWorks = professional.preferWorks.length;
 
     const payload = {
@@ -92,7 +88,7 @@ exports.getPreferWorks = async (req, res) => {
       pageSize,
       totalPages: Math.ceil(totalPreferWorks / pageSize),
       statusCode: 200,
-      message: `User with id ${id} correctly found`,
+      message: `Professional with id ${id} correctly found`,
       payload,
     });
   } catch (error) {
@@ -103,6 +99,8 @@ exports.getPreferWorks = async (req, res) => {
     });
   }
 };
+
+
 
 exports.getSingleProfessional = async (req, res) => {
   const { id } = req.params;

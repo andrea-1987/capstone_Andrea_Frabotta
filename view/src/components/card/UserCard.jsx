@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -20,46 +20,54 @@ export function UserCards({
 }) {
   const [selectedWork, setSelectedWork] = useState({});
   const navigate = useNavigate();
-
-  const handleCardClick =async (e,work) => {
-    e.preventDefault();
+  // const item=sessionData
+  const handleCardClick = async (work) => {
     setSelectedWork(work);
-      if (!selectedWork) {
-        alert("no works found");
-      }
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_SERVER_BASE_URL}/${sessionData.role}/${sessionData._id}/preferWorks`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${sessionData}`,
-            },
-            body: JSON.stringify({
-              author: selectedWork.author,
-              title: selectedWork.title,
-              description: selectedWork.description,
-              img: selectedWork.img,
-              pubDate: selectedWork.pubDate,
-              location: selectedWork.location,
-              _id: selectedWork._id,
-            }),
-          }
-        );
-  
-        if (response.ok) {
-        } else {
-          console.error(
-            "Errore durante il salvataggio del lavoro:",
-            response.statusText
-          );
-        }
-      } catch (error) {
-        console.error("Errore durante il salvataggio del lavoro:", error);
-      }
+    // console.log(item)
     
+    
+    if (selectedWork) {
+      
+      await addToPreferWorks();
+    }
+    
+  }
+  const addToPreferWorks = async () => {
+    console.log(sessionData)
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/${sessionData.role}/${sessionData._id}/preferWorks`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionData}`,
+          },
+          body: JSON.stringify({
+            author: selectedWork.author,
+            title: selectedWork.title,
+            description: selectedWork.description,
+            img: selectedWork.img,
+            pubDate: selectedWork.pubDate,
+            location: selectedWork.location,
+            _id: selectedWork._id,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        // Puoi fare qualcosa qui se necessario
+      } else {
+        console.error(
+          "Errore durante il salvataggio del lavoro:",
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Errore durante il salvataggio del lavoro:", error);
+    }
   };
+
   const handleDetailPage = () => {
     navigate(`/works/${_id}`);
   };
@@ -115,9 +123,17 @@ export function UserCards({
           </svg>
         </Button>
         <Button
- onClick={(e) => {
-  handleCardClick(e, { author, title, description, img, location, _id });
-}}
+          onClick={() =>
+            handleCardClick({
+              author,
+              title,
+              description,
+              img,
+              pubDate,
+              location,
+              _id,
+            })
+          }
           variant="text"
           className="flex items-center gap-2"
         >

@@ -17,46 +17,45 @@ exports.getUsers= async(req,res)=>{
 };
 
 exports.getPreferWorks = async (req, res) => {
-    const { id } = req.params;
-    const { page = 1, pageSize = 3 } = req.query;
-  
-    try {
-      const user = await UserModel.findById(id)
-        .limit(pageSize)
-        .skip((page - 1) * pageSize)
-        .sort({ pubDate: -1 });
-  
-      if (!user) {
-        return res.status(404).send({
-          statusCode: 404,
-          message: `User with id ${id} not found`,
-        });
-      }
-  
-      const preferWorks = user.preferWorks.slice((page - 1) * pageSize, page * pageSize);
-      const totalPreferWorks = user.preferWorks.length;
-  
-      const payload = {
-        ...user.toObject(),
-        preferWorks,
-      };
-  
-      res.status(200).send({
-        currentPage: page,
-        pageSize,
-        totalPages: Math.ceil(totalPreferWorks / pageSize),
-        statusCode: 200,
-        message: `User with id ${id} correctly found`,
-        payload,
-      });
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      res.status(500).send({
-        statusCode: 500,
-        message: "Internal server error",
+  const { id } = req.params;
+  const { page = 1, pageSize = 3 } = req.query;
+
+  try {
+    const user = await UserModel.findById(id);
+
+    if (!user) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: `user with id ${id} not found`,
       });
     }
-  };
+
+    const preferWorks = user.preferWorks.slice((page - 1) * pageSize, page * pageSize);
+
+    const totalPreferWorks = user.preferWorks.length;
+
+    const payload = {
+      ...user.toObject(),
+      preferWorks,
+    };
+
+    res.status(200).send({
+      currentPage: page,
+      pageSize,
+      totalPages: Math.ceil(totalPreferWorks / pageSize),
+      statusCode: 200,
+      message: `user with id ${id} correctly found`,
+      payload,
+    });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).send({
+      statusCode: 500,
+      message: "Internal server error",
+    });
+  }
+};
+
 
 exports.getSingleUsers = async (req, res) => {
     const { id } = req.params;
@@ -153,7 +152,7 @@ exports.addWorkToPreferWorks = async (req, res) => {
   
       res.status(200).send({
         statusCode: 200,
-        message: `Work added to myWorks of professional with ID ${id}`,
+        message: `Work added to myWorks of user with ID ${id}`,
         work: addedWork,
       });
     } catch (error) {

@@ -29,7 +29,7 @@ exports.toLoggIn = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(401).send({
                 statusCode: 401,
-                message: 'Email or password are not valid!'
+                message: 'Invalid email or password!'
             });
         }
 
@@ -39,8 +39,8 @@ exports.toLoggIn = async (req, res) => {
             email: profile.email,
             role: profile.role,
             _id: profile._id,
-            // preferWorks: profile.preferWorks ? profile.preferWorks : undefined,
-            // myWorks: profile.myWorks ? profile.myWorks : undefined,
+            // preferWorks: dec.preferWorks ? dec.preferWorks : undefined,
+            // myWorks: dec.myWorks ? dec.myWorks : undefined,
         }, process.env.SECRET_KEY, {
             expiresIn: '24h'
         });
@@ -58,6 +58,4 @@ exports.toLoggIn = async (req, res) => {
             statusCode: 500
         });
     }
-  };
-
-
+};
