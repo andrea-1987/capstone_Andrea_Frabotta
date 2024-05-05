@@ -59,7 +59,6 @@ exports.getMyWorks = async (req, res) => {
   }
 };
 
-
 exports.getPreferWorks = async (req, res) => {
   const { id } = req.params;
   const { page = 1, pageSize = 3 } = req.query;
@@ -74,7 +73,10 @@ exports.getPreferWorks = async (req, res) => {
       });
     }
 
-    const preferWorks = professional.preferWorks.slice((page - 1) * pageSize, page * pageSize);
+    const preferWorks = professional.preferWorks.slice(
+      (page - 1) * pageSize,
+      page * pageSize
+    );
 
     const totalPreferWorks = professional.preferWorks.length;
 
@@ -99,8 +101,6 @@ exports.getPreferWorks = async (req, res) => {
     });
   }
 };
-
-
 
 exports.getSingleProfessional = async (req, res) => {
   const { id } = req.params;
@@ -247,7 +247,8 @@ exports.addWorkToPreferWorks = async (req, res) => {
 
     await professional.save();
 
-    const addedWork = professional.preferWorks[professional.preferWorks.length - 1];
+    const addedWork =
+      professional.preferWorks[professional.preferWorks.length - 1];
 
     res.status(200).send({
       statusCode: 200,

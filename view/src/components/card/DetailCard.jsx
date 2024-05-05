@@ -1,8 +1,6 @@
 import React from "react";
 
-import {
-  Button,
-} from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 
 export const DetailCard = ({
   author,
@@ -69,9 +67,9 @@ export const DetailCard = ({
         </div>
       </div>
       <div class="p-6 pt-3">
-      <a href="#" className="inline-block">
+        <a href="#" className="inline-block">
           <Button variant="text" className="flex items-center gap-2">
-            Learn More
+            Save
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

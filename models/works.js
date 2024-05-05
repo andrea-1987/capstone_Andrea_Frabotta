@@ -19,17 +19,17 @@ const WorksSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    location:{
-      type:String,
-      required:false,
-      default :"unknown"
+    location: {
+      type: String,
+      required: false,
+      default: "unknown",
     },
-    pubDate:{
-      type:Date,
-      required:false,
-      default:Date.now()
-    }
+    pubDate: {
+      type: Date,
+      required: false,
+      default: Date.now(),
+    },
   },
   { timestamps: true, strict: true }
 );
-module.exports=mongoose.model("WorksModel",WorksSchema,"works")
+module.exports = mongoose.model("WorksModel", WorksSchema, "works");

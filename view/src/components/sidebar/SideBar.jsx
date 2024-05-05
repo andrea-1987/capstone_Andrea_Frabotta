@@ -97,12 +97,16 @@ export function SidebarWithSearch() {
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
-
+const handlerLogOut=(e)=>{
+  e.preventDefault();
+  localStorage.clear();
+  navigate("/");
+}
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
   return (
-    <>
-      <IconButton variant="text" size="lg" onClick={openDrawer}>
+<div className="flex-cols">
+    <IconButton variant="text" size="lg" onClick={openDrawer}>
         {isDrawerOpen ? (
           <XMarkIcon className="h-8 w-8 stroke-2" />
         ) : (
@@ -153,17 +157,17 @@ export function SidebarWithSearch() {
               </div>
             )}
           </div>
-          <ListItem className="my-2" onClick={personalPage}>
-            <ListItemPrefix>
-              <UserCircleIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Profile
-          </ListItem>
           <ListItem className="my-2">
             <ListItemPrefix>
               <Cog6ToothIcon className="h-5 w-5" />
             </ListItemPrefix>
             Settings
+          </ListItem>
+          <ListItem className="my-2" onClick={personalPage}>
+            <ListItemPrefix>
+              <UserCircleIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            My Saved
           </ListItem>
 
           {shouldShowMyWorks && (
@@ -186,7 +190,7 @@ export function SidebarWithSearch() {
 
           {shouldShowAddWorkButton && (
             <Button
-              className="mt-2"
+              className="mt-5"
               onClick={handleOpenModal}
               variant="gradient"
             >
@@ -200,8 +204,8 @@ export function SidebarWithSearch() {
           >
             <AddWorkModal />
           </Dialog>
-          <div>
-            <ListItem>
+          <div className="mt-20">
+            <ListItem onClick={handlerLogOut}>
               <ListItemPrefix>
                 <PowerIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -210,6 +214,6 @@ export function SidebarWithSearch() {
           </div>
         </Card>
       </Drawer>
-    </>
+    </div>
   );
 }

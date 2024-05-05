@@ -20,11 +20,10 @@ export function UserCards({
 }) {
   const [selectedWork, setSelectedWork] = useState({});
   const navigate = useNavigate();
-  // const item=sessionData
+  
   const handleCardClick = async (work) => {
     setSelectedWork(work);
-    // console.log(item)
-    
+      
     
     if (selectedWork) {
       
@@ -56,7 +55,7 @@ export function UserCards({
       );
 
       if (response.ok) {
-        // Puoi fare qualcosa qui se necessario
+     
       } else {
         console.error(
           "Errore durante il salvataggio del lavoro:",
