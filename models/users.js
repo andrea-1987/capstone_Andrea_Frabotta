@@ -36,11 +36,35 @@ const UserSchema = new mongoose.Schema(
       required: false,
       default: "user",
     },
-    preferWorks:{
-      type:[],
-      required: false,
-      default:[]
-    }
+    preferWorks:[{
+      author: {
+        type: String,
+        required: true,
+        max: 40,
+      },
+      title: {
+        type: String,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      img: {
+        type: String,
+        required: true,
+      },
+      location:{
+        type:String,
+        required:true,
+        default :"unknown"
+      },
+      pubDate:{
+        type:Date,
+        required:false,
+        default:Date.now()
+      }
+    }],
   },
   { timestamps: true, strict: true }
 );

@@ -104,7 +104,6 @@ exports.getPreferWorks = async (req, res) => {
   }
 };
 
-
 exports.getSingleProfessional = async (req, res) => {
   const { id } = req.params;
   const { page = 1, pageSize = 3 } = req.query;

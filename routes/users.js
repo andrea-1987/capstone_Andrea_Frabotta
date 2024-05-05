@@ -8,7 +8,11 @@ router.get("/user",verified, usersController.getUsers);
 
 router.get("/user/:id", usersController.getSingleUsers);
 
+router.get("/user/:id/preferWorks", usersController.getPreferWorks);
+
 router.post("/createUser",validateUser,usersController.addUser);
+
+router.post("/user/:id/preferWorks",usersController.addWorkToPreferWorks);
 
 router.patch("/user/update/:id",usersController.updateUser);
 

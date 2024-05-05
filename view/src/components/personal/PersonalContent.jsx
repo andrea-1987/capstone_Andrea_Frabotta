@@ -9,6 +9,7 @@ import useSession from "../../hooks/useSession";
 import { worksError,isWorkLoading } from "../../redux/WorkCardSlice";
 import { useSelector } from "react-redux";
 import sessionData from "../../helper/session";
+import { MainLayout } from "../../layout/MainLayout";
 
 export const PersonalContent = () => {
 
@@ -34,7 +35,7 @@ export const PersonalContent = () => {
 
       setWorks(data.payload.preferWorks); 
       setTotalPages(data.totalPages); 
-      console.log(data.payload.preferWorks)
+      console.log(works)
     
         } catch (error) {
       alert("Error fetching works:", error);
@@ -48,13 +49,14 @@ export const PersonalContent = () => {
     setPage(newPage);
   };
   return (
+    <MainLayout>
     <div className={`${styles.content}`}>
       <SidebarWithSearch />
       <div className={`${styles.main}`}>
       {isLoading && <CustomSpinner />}
       {!isLoading && error && <ErrorAlert message="Ops! Qualcosa è andato storto" />}
-      {isAuthenticated && !isLoading && !error && works && works[0].preferWorks && (
-  works[0].preferWorks.map((work) => (
+      {isAuthenticated && !isLoading && !error && works && (
+  works.map((work) => (
     <div key={work._id}>
             <UserCards
               author={work.author}
@@ -76,5 +78,7 @@ export const PersonalContent = () => {
       />
     </div>
     </div>
+    </MainLayout>
   );
+  
 };

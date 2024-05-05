@@ -100,7 +100,6 @@ export function SidebarWithSearch() {
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
-console.log(sessionData)
   return (
     <>
       <IconButton variant="text" size="lg" onClick={openDrawer}>

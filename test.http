@@ -13,13 +13,13 @@ Content-Type: application/json
     "age":35
 }
 ####
-POST http://localhost:4040/professional/66366ef440cb09eb0d3a0491/myWorks
+POST http://localhost:4040/professional/66369148316cb19c6b803a43/myWorks
 Content-Type: application/json
 
 {
     "author":"Andrea",
     "title":"Frabotta",
-    "description":"io.mestesso@hotmail.com",
+    "description":"lkjfldsjòlds",
     "img":"https://static.vecteezy.com/system/resources/previews/000/649/115/original/user-icon-symbol-sign-vector.jpg",
  
 }
